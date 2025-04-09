@@ -8,9 +8,7 @@ import { Context } from "context/Context";
 import { onCroppedImg } from "utils/image";
 
 type Props = {
-    image: string;
-    aspect: number;
-    onNext: () => void;
+    onNext: (url: string) => void;
 };
 
 const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
@@ -27,7 +25,7 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
 
         // onCrop(croppedBlob, previewUrl);
         onUpload(croppedBlob);
-        setState({ ...state, cropped: croppedBlob });
+        setState({ ...state, cropped: previewUrl });
         console.log('Cropped image ready:', previewUrl);
     };
 
