@@ -8,6 +8,8 @@ import { Context } from "context/Context";
 import { onCroppedImg } from "utils/image";
 
 type Props = {
+    image: string;
+    aspect: string;
     onNext: (url: string) => void;
 };
 

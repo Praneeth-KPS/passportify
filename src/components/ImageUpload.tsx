@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { Context } from "context/Context";
 
 type Props = {
-    onStep: () => void;
+    onStep: (s: number) => void;
 };
 
 type Dimensions = {
