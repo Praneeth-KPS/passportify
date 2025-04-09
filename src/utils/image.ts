@@ -1,9 +1,4 @@
 
-type CropParams = {
-    image: string,
-    crop: { x: number, y: number, width: number, height: number }
-};
-
 export const onCroppedImg = async (
     image: string,
     crop: { x: number, y: number, width: number, height: number }

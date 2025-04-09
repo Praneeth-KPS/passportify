@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 
 import { Context } from "context/Context";
 
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
-    const { state, setState } = Context();
+    const { state } = Context();
     const onDownload = async () => {
         console.log({ t: state.token });
 

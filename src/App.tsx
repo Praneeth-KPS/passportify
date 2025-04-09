@@ -14,11 +14,7 @@ import ImagePreview from "components/ImagePreview";
 function App() {
     const { state } = Context();
     const [step, setStep] = useState<1 | 2 | 3>(1);
-    const [count, setCount] = useState(0);
     const [url, setUrl] = useState<string | null>(null);
-    const onCrop = area => {
-
-    };
     const onStep = s => setStep(s);
     const onNext = url => {
         console.log("Got url setting it.");
@@ -34,7 +30,6 @@ function App() {
                 <ImageCropper
                     image = {state.img}
                     aspect = {state.aspect}
-                    onCrop = {onCrop}
                     onNext = {onNext} />
             }
             {step === 3 &&

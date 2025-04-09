@@ -10,11 +10,10 @@ import { onCroppedImg } from "utils/image";
 type Props = {
     image: string;
     aspect: number;
-    onCrop: (croppedAreaPixels: Area) => void;
     onNext: () => void;
 };
 
-const ImageCropper: React.FC<Props> = ({ image, aspect, onCrop, onNext }) => {
+const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
     const { state, setState } = Context();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -26,13 +25,13 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onCrop, onNext }) => {
         const previewUrl = URL.createObjectURL(croppedBlob);
         console.log({ previewUrl });
 
-        onCrop(croppedBlob, previewUrl);
+        // onCrop(croppedBlob, previewUrl);
         onUpload(croppedBlob);
         setState({ ...state, cropped: croppedBlob });
         console.log('Cropped image ready:', previewUrl);
     };
 
-    const onUpload = async blob => {
+    const onUpload = async (blob: Blob) => {
         console.log({ blob });
         const { dimensions } = state;
         console.log({ px: `${dimensions.widthPx}x${dimensions.heightPx}` });
@@ -42,7 +41,7 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onCrop, onNext }) => {
         form.append("dimensions", `${dimensions.widthPx}x${dimensions.heightPx}`);
         console.log({ form });
 
-        const res = await fetch("http://127.0.0.1:5000/process-photo", {
+        await fetch("http://127.0.0.1:5000/process-photo", {
             method: "POST",
             body: form
         }).then((res) => res.json()).then((data) => {

@@ -12,6 +12,8 @@ type Dimensions = {
     unit: "mm" | "in";
 };
 
+const dpi = 300;
+
 const Default_dimensions: Dimensions = { width: 35, height: 45, unit: "mm" };
 
 const ImageUpload: React.FC<Props> = ({ onStep }) => {
@@ -19,26 +21,25 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
 
     const { state, setState } = Context();
 
-    const [image, setImage] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [dimensions, setDimensions] = useState<Dimensions>(Default_dimensions);
-    const [dpi, setDpi] = useState(300);
     const [standard, setStandard] = useState(true);
 
     const onFile = (file: File) => {
-        setImage(file);
         const url = URL.createObjectURL(file);
         setPreview(url);
     };
 
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files[0];
+        const files = e.target.files;
+        if (!files) return;
+        const file = files[0];
         if (file) onFile(file);
     };
 
-    const onDragOver = () => e.preventDefault();
+    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => e.preventDefault();
 
-    const onFileDrop = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
             onFile(e.dataTransfer.files[0]);
@@ -50,7 +51,7 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
         if (ref && ref.current) ref.current.click();
     };
 
-    const onDimensionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onDimensionChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         console.log({ name, value });
 
@@ -89,7 +90,7 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
             <div
                 className = {`w-full max-w-3xl p-6 rounded-xl border-2 border-dashed ${border}`}
                 onDrop = {onFileDrop}
-                onDragOver = {(e) => e.preventDefault()}>
+                onDragOver = {onDragOver}>
                 {!preview &&
                     <div className="flex flex-col items-center justify-center space-y-4 text-center">
                         <p className="text-gray-300">Select Or Drag & Drop Image Here</p>
