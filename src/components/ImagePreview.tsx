@@ -4,7 +4,7 @@ import React from "react";
 import { Context } from "context/Context";
 
 type Props = {
-    imageUrl: string;
+    imageUrl: string | null;
 };
 
 const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
