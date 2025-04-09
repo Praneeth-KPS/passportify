@@ -29,7 +29,7 @@ function App() {
                     aspect = {state.aspect}
                     onNext = {onNext} />
             }
-            {step === 3 &&
+            {step === 3 && url &&
                 <ImagePreview imageUrl = {url} />
             }
         </div>
