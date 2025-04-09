@@ -9,7 +9,7 @@ import { onCroppedImg } from "utils/image";
 
 type Props = {
     image: string;
-    aspect: string;
+    aspect: number;
     onNext: (url: string) => void;
 };
 
@@ -20,7 +20,7 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
     const [pixels, setPixels] = useState<Area | null>(null);
 
     const onSubmit = async () => {
-        const croppedBlob = await onCroppedImg(image, pixels);
+        const croppedBlob = await onCroppedImg(image, pixels!);
 
         const previewUrl = URL.createObjectURL(croppedBlob);
         console.log({ previewUrl });

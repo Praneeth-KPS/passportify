@@ -10,7 +10,7 @@ import ImagePreview from "components/ImagePreview";
 
 function App() {
     const { state } = Context();
-    const [step, setStep] = useState<1 | 2 | 3>(1);
+    const [step, setStep] = useState<number>(1);
     const [url, setUrl] = useState<string | null>(null);
     const onStep = (s: number) => setStep(s);
     const onNext = (link: string) => {
