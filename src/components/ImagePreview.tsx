@@ -19,7 +19,8 @@ const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
         // console.log({ url });
 
         const link = document.createElement("a");
-        link.href = `http://127.0.0.1:5000/download/${state.token}`;
+        const backend = import.meta.env.VITE_API_URL;
+        link.href = `${backend}/download/${state.token}`;
         link.download = "passport-photo-grid.jpg";
         document.body.appendChild(link);
         link.click();
