@@ -24,7 +24,6 @@ const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-
     };
 
     return (
