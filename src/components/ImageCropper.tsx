@@ -34,12 +34,10 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
     const onUpload = async (blob: Blob) => {
         console.log({ blob });
         const { dimensions } = state;
-        console.log({ px: `${dimensions.widthPx}x${dimensions.heightPx}` });
 
         const form = new FormData();
         form.append("image", blob);
         form.append("dimensions", `${dimensions.widthPx}x${dimensions.heightPx}`);
-        console.log({ form });
 
         const backend = import.meta.env.VITE_API_URL;
         console.log({ backend });
