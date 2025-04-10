@@ -41,7 +41,10 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
         form.append("dimensions", `${dimensions.widthPx}x${dimensions.heightPx}`);
         console.log({ form });
 
-        await fetch("http://127.0.0.1:5000/process-photo", {
+        const backend = import.meta.env.VITE_API_URL;
+        console.log({ backend });
+
+        await fetch(`${backend}/process-photo`, {
             method: "POST",
             body: form
         }).then((res) => res.json()).then((data) => {
