@@ -9,7 +9,7 @@ export type AppState = {
     dimensions: {
         width: number,
         height: number,
-        unit: string,
+        unit: "mm" | "in",
         widthPx: number,
         heightPx: number
     };
