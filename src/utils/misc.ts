@@ -1,4 +1,4 @@
 
 export const noop = () => {};
 
-export const onSome = arr => arr.length > 0;
+export const onSome = (arr: any[]) => arr.length > 0;

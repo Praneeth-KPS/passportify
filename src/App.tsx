@@ -17,7 +17,7 @@ function App() {
     const { state } = Context();
     const [step, setStep] = useState<number>(0);
     const [url, setUrl] = useState<string | null>(null);
-    const [loading, setLoading] = useState<bool>(state.loading);
+    const [loading, setLoading] = useState<boolean>(state.loading);
     useEffect(() => {
         setLoading(state.loading);
     }, [state.loading]);

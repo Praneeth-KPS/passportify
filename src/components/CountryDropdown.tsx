@@ -13,9 +13,8 @@ type Props = {
 
 const CountryDropdown: React.FC<Props> = ({ selected, onChange }) => {
     const [query, setQuery] = useState("");
-    const [open, setOpen] = useState(false);
 
-    const onQuery = e => {
+    const onQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value);
     };
     const onDisplay = (code: string) => {

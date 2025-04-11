@@ -6,12 +6,6 @@ type Props = {
     onStep: (s: number) => void;
 };
 
-type Dimensions = {
-    width: number;
-    height: number;
-    unit: "mm" | "in";
-};
-
 const dpi = 300;
 
 const ImageUpload: React.FC<Props> = ({ onStep }) => {
@@ -21,7 +15,6 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
     const { country, dimensions } = state;
 
     const [preview, setPreview] = useState<string | null>(null);
-    const [standard, setStandard] = useState(true);
 
     const onFile = (file: File) => {
         const url = URL.createObjectURL(file);

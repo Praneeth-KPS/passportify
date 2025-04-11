@@ -14,7 +14,7 @@ export type AppState = {
         heightPx: number
     };
     token: string;
-    loading: bool;
+    loading: boolean;
 };
 
 export type ContextType = {

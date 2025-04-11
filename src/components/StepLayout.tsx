@@ -6,6 +6,7 @@ type Props = {
 }
 
 const map = {
+    0: "Start",
     1: "Upload",
     2: "Crop",
     3: "Download"

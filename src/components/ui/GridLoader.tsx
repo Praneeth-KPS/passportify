@@ -1,6 +1,4 @@
 
-import React from "react";
-
 const GridLoader = () => {
     return (
         <div className="grid grid-cols-3 grid-rows-2 gap-2 w-[600px] h-[300px]">

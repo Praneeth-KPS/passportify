@@ -10,7 +10,13 @@ type Props = {
     onStep: (step: number) => void;
 };
 
-const Default_dimensions: Dimensions = { width: 35, height: 45, unit: "mm" };
+type Dimensions = {
+    width: number;
+    height: number;
+    unit: "mm" | "in";
+    widthPx: number;
+    heightPx: number
+};
 
 const Landing: React.FC<Props> = ({ onStep }) => {
     const { state, setState } = Context();
