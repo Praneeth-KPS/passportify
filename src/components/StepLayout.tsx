@@ -5,7 +5,7 @@ type Props = {
     step: number
 }
 
-const map = {
+const map: Record<number, string> = {
     0: "Start",
     1: "Upload",
     2: "Crop",

@@ -10,7 +10,7 @@ type Props = {
     onStep: (step: number) => void;
 };
 
-type Dimensions = {
+interface Dimensions = {
     width: number;
     height: number;
     unit: "mm" | "in";
