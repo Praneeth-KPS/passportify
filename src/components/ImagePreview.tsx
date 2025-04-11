@@ -35,7 +35,7 @@ const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
                 alt = "Processed"
                 className = "border rounded" />
             <button
-                className = "bg-gray-500 text-white px-4 py-2 rounded"
+                className = "bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white px-4 py-2 rounded cursor-pointer"
                 onClick = {onDownload}>
                 Download
             </button>

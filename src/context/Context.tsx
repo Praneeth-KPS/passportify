@@ -9,6 +9,7 @@ export const ReactProvider = ({ children }: { children: ReactNode }) => {
         img: "",
         aspect: 0,
         cropped: "",
+        country: "",
         dimensions: {
             width: 35,
             height: 35,
@@ -16,7 +17,8 @@ export const ReactProvider = ({ children }: { children: ReactNode }) => {
             widthPx: 0,
             heightPx: 0
         },
-        token: ""
+        token: "",
+        loading: false
     });
 
     return (

@@ -10,10 +10,11 @@ import { onCroppedImg } from "utils/image";
 type Props = {
     image: string;
     aspect: number;
+    onPrev: (s: number) => void;
     onNext: (url: string) => void;
 };
 
-const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
+const ImageCropper: React.FC<Props> = ({ image, aspect, onPrev, onNext }) => {
     const { state, setState } = Context();
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -23,24 +24,21 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
         const croppedBlob = await onCroppedImg(image, pixels!);
 
         const previewUrl = URL.createObjectURL(croppedBlob);
-        console.log({ previewUrl });
 
         // onCrop(croppedBlob, previewUrl);
         onUpload(croppedBlob);
-        setState({ ...state, cropped: previewUrl });
-        console.log('Cropped image ready:', previewUrl);
+        setState(prev => ({ ...prev, cropped: previewUrl }));
     };
 
     const onUpload = async (blob: Blob) => {
-        console.log({ blob });
         const { dimensions } = state;
+        setState({ ...state, loading: true });
 
         const form = new FormData();
         form.append("image", blob);
         form.append("dimensions", `${dimensions.widthPx}x${dimensions.heightPx}`);
 
         const backend = import.meta.env.VITE_API_URL;
-        console.log({ backend });
 
         await fetch(`${backend}/process-photo`, {
             method: "POST",
@@ -50,7 +48,7 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
 
             const url = data.preview_base64;
             onNext(url);
-            setState({ ...state, token: data.token });
+            setState({ ...state, token: data.token, loading: false });
         });
         // console.log({ res: res.data });
         //
@@ -82,9 +80,14 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onNext }) => {
                   cropAreaStyle: { border: '2px solid #00FFFF' },
                   containerStyle: { backgroundColor: '#000' }
                 }} />
-            <div className = "absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            <div className = "w-full absolute -bottom-20 left-1/2 transform -translate-x-1/2 flex justify-between align-center">
                 <button
-                    className = "bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 px-6 rounded shadow-lg"
+                    className = "bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white font-semibold py-2 px-6 rounded shadow-lg"
+                    onClick = {() => onPrev(1)}>
+                    Back
+                </button>
+                <button
+                    className = "bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white font-semibold py-2 px-6 rounded shadow-lg cursor-pointer"
                     onClick = {onSubmit}>
                     Confirm image
                 </button>

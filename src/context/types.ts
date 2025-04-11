@@ -5,6 +5,7 @@ export type AppState = {
     img: string;
     aspect: number;
     cropped: string;
+    country: string;
     dimensions: {
         width: number,
         height: number,
@@ -13,6 +14,7 @@ export type AppState = {
         heightPx: number
     };
     token: string;
+    loading: bool;
 };
 
 export type ContextType = {

@@ -14,15 +14,13 @@ type Dimensions = {
 
 const dpi = 300;
 
-const Default_dimensions: Dimensions = { width: 35, height: 45, unit: "mm" };
-
 const ImageUpload: React.FC<Props> = ({ onStep }) => {
     const ref = useRef<HTMLInputElement | null>(null);
 
     const { state, setState } = Context();
+    const { country, dimensions } = state;
 
     const [preview, setPreview] = useState<string | null>(null);
-    const [dimensions, setDimensions] = useState<Dimensions>(Default_dimensions);
     const [standard, setStandard] = useState(true);
 
     const onFile = (file: File) => {
@@ -51,21 +49,9 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
         if (ref && ref.current) ref.current.click();
     };
 
-    const onDimensionChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        console.log({ name, value });
-
-        setDimensions({
-            ...dimensions,
-            [name]: name === "unit" ? (value as "mm" | "in") : parseFloat(value)
-        });
-    };
-
     const onNext = () => {
         if (preview) {
-            const d1 = Default_dimensions.width / Default_dimensions.height;
-            const d2 = dimensions.width / dimensions.height;
-            const ratio = standard ? d1 : d2;
+            const ratio = dimensions.width / dimensions.height;
             const factor = dimensions.unit === "mm" ? (1 / 25.4) : 1;
             const widthPx = Math.round(dimensions.width * factor * dpi);
             const heightPx = Math.round(dimensions.height * factor * dpi);
@@ -86,17 +72,17 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
     const border = preview ? "border-gray-600" : "border-purple-400";
 
     return (
-        <div>
+        <div className = "w-full flex flex-col items-center justify-center">
             <div
-                className = {`w-full max-w-3xl p-6 rounded-xl border-2 border-dashed ${border}`}
+                className = {`w-full max-w-4xl p-6 rounded-xl border-2 border-dashed ${border}`}
                 onDrop = {onFileDrop}
                 onDragOver = {onDragOver}>
                 {!preview &&
-                    <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                        <p className="text-gray-300">Select Or Drag & Drop Image Here</p>
+                    <div className="w-full my-6 flex flex-col items-center justify-center space-y-4 text-center">
+                        <p className="text-white-300">Select Or Drag & Drop Image Here</p>
                         <button
                             onClick = {onTriggerInput}
-                            className = "bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded" >
+                            className = "bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white font-semibold px-4 py-2 rounded" >
                             Select Image
                         </button>
                         <input
@@ -114,54 +100,16 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
                             alt = "Preview"
                             className = "w-48 h-auto border rounded-md" />
 
-                        <div className = "flex-1 space-y-4">
+                        <div className = "flex-1 flex flex-col justify-center space-y-4">
                         <div>
-                            <p className = "text-lg font-semibold text-gray-300 mb-1">Dimensions</p>
-                            <label className = "flex items-center justify-center space-x-2 text-sm">
-                                <input
-                                    type = "checkbox"
-                                    checked = {standard}
-                                    onChange = {() => setStandard(!standard)} />
-                                    <span>Use default passport size (35mm x 45mm)</span>
-                            </label>
-                            {!standard && (
-                                <div className = "flex justify-center space-x-4 mt-3">
-                                    <div>
-                                        <label className = "block text-sm">Width</label>
-                                        <input
-                                            type = "number"
-                                            name = "width"
-                                            value = {dimensions.width}
-                                            onChange = {onDimensionChange}
-                                            className = "bg-[#242424] border border-gray-500 p-2 rounded w-24" />
-                                    </div>
-                                    <div>
-                                        <label className = "block text-sm">Height</label>
-                                        <input
-                                            type = "number"
-                                            name = "height"
-                                            value = {dimensions.height}
-                                            onChange = {onDimensionChange}
-                                            className = "bg-[#242424] border border-gray-500 p-2 rounded w-24" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm">Unit</label>
-                                        <select
-                                            name = "unit"
-                                            value = {dimensions.unit}
-                                            onChange = {onDimensionChange}
-                                            className = "bg-[#242424] border border-gray-500 p-2 rounded" >
-                                            <option value = "mm">mm</option>
-                                            <option value = "in">in</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            )}
+                            <p className = "text-lg font-semibold text-gray-300 mb-1">Selected Dimensions -</p>
+                            {country && <p className = "text-s font-semibold text-gray-300 mt-5 mb-1">Country - {country}</p>}
+                            <p className = "text-s font-semibold text-gray-300 mb-1">Size - {dimensions.width} x {dimensions.height} {dimensions.unit}</p>
                         </div>
                         <div>
                             <button
                                 onClick = {onTriggerInput}
-                                className = "bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded">
+                                className = "bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white font-semibold px-4 py-2 rounded">
                                 Re-upload Image
                             </button>
                             <input
@@ -176,7 +124,7 @@ const ImageUpload: React.FC<Props> = ({ onStep }) => {
                 }
             </div>
             <button
-                className = "w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded text-center"
+                className = "p-8 mt-10 bg-[#7B61FF] hover:bg-[#937CFF] active:bg-[#634AD1] text-white font-semibold py-3 rounded text-center cursor-pointer"
                 onClick = {onNext}>
                 Proceed to Next Step
             </button>
