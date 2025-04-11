@@ -10,8 +10,6 @@ type Props = {
 const ImagePreview: React.FC<Props> = ({ imageUrl }) => {
     const { state } = Context();
     const onDownload = async () => {
-        console.log({ t: state.token });
-
         // const res = await fetch(`http://127.0.0.1:5000/download/${state.token}`, {
         //     method: "GET"
         // });

@@ -44,7 +44,6 @@ const ImageCropper: React.FC<Props> = ({ image, aspect, onPrev, onNext }) => {
             method: "POST",
             body: form
         }).then((res) => res.json()).then((data) => {
-            console.log({ data });
 
             const url = data.preview_base64;
             onNext(url);
