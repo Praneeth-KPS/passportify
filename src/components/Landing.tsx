@@ -10,12 +10,12 @@ type Props = {
     onStep: (step: number) => void;
 };
 
-interface Dimensions = {
+interface Dimensions {
     width: number;
     height: number;
     unit: "mm" | "in";
     widthPx: number;
-    heightPx: number
+    heightPx: number;
 };
 
 const Landing: React.FC<Props> = ({ onStep }) => {
